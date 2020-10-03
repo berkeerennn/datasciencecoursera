@@ -1,13 +1,44 @@
-Version: 1.0
-
-RestoreWorkspace: Default
-SaveWorkspace: Default
-AlwaysSaveHistory: Default
-
-EnableCodeIndexing: Yes
-UseSpacesForTab: Yes
-NumSpacesForTab: 2
-Encoding: UTF-8
-
-RnwWeave: Sweave
-LaTeX: pdfLaTeX
+> makeCacheMatrix <- function( n = matrix() ) {
++     
++     a <- NULL
++     set <- function( matrix ) {
++         n <<- matrix
++         a <<- NULL
++     }
++     get <- function() {
++         n
++     }
++     setInverse <- function(inverse) {
++         a <<- inverse
++     }
++ 
++     getInverse <- function() {
++         a
++     }
++     
++     list(set = set, get = get,
++          setInverse = setInverse,
++          getInverse = getInverse)
++ }
+> 
+> 
+> 
+> cacheSolve <- function(x, ...) {
++     
++  
++     n <- x$getInverse()
++     
++   
++     if( !is.null(n) ) {
++         message("getting cached data")
++         return(n)
++     }
++ 
++     data <- x$get()
++ 
++     n <- solve(data) %*% data
++ 
++     x$setInverse(m)
++ 
++     n
++ }
